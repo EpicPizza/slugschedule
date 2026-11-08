@@ -48,6 +48,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    width: 100%;
   }
 
   @media screen and (max-width: 1000px) {
