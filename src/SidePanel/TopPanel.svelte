@@ -29,38 +29,25 @@
     <button class="logo" on:click={() => { $focusedClass = "home"; $listMode = "all"}}>
         <img src={SlugSchedule} width="50px" alt="Slug Schedule Logo. Yellow Slug in front of Calendar."/>
     </button>
-    <button title="Search classes" on:click={() => $listMode = "all"} class="iconBtn" class:active={$listMode === "all"}>
-        <Magnify size="2em" />
-    </button>
-    <button title="Starred classes" on:click={() => $listMode = "starred"} class="iconBtn" class:active={$listMode === "starred"}>
-        <Star size="2em" />
-    </button>
-    <button title="Schedule classes" on:click={() => $listMode = "scheduler"} class="iconBtn" class:active={$listMode === "scheduler"}>
-        <Calendar size="2em" />
-    </button>
     <!--
     <button title="Smart class search" on:click={() => $listMode = "smart"} class="iconBtn smart" class:active={$listMode === "smart"}>
         <AutoFix size="2em" />
     </button>
     -->
     <span class="grower" />
-    <button on:click={() => termMenuOpen = !termMenuOpen} class:active={termMenuOpen} class="term" style="text-align: center">{term} ({$db.term})</button>
-    {#if termMenuOpen}
-        <TermMenu bind:term={term} bind:termMenuOpen={termMenuOpen} />
-    {/if}
+    
 </aside>
 
 <style>
     aside {
         position: relative;
         flex-shrink: 0;
-        width: 72px;
+        height: 72px;
         background-color: #111;
         border-right: 1px solid #444;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: 10px;
-        padding: 20px 0;
         align-items: center;
     }
     aside > *:not(.indicator):not(.term):not(span) {

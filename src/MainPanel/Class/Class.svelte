@@ -426,19 +426,6 @@
         </a>
     {/if}
 </div>
-<header class="mobileHeader">
-    <button class="roundBtn" on:click={() => $focusedClass = null}>
-        <ArrowLeft />
-    </button>
-    <h2>{item.code}</h2>
-    <button class="roundBtn" title="Star this class for later" on:click={toggleStar}>
-        {#if $starredClasses.includes(item.number)}
-            <Star />
-        {:else}
-            <StarOutline />
-        {/if}
-    </button>
-</header>
 
 <style>
     .class {

@@ -16,6 +16,7 @@
     import { tick } from "svelte";
     import SmartPanel from "../SmartPanel/SmartPanel.svelte";
     import { matchesMeetingFilters } from "../meetingInfo";
+    import SlugSchedule from "../assets/slugschedule.svg";
 
 
     
@@ -131,8 +132,10 @@
         <SmartPanel />
     {:else}
         <div class="searchContainer">
-            <Search onSearchClicked={scrollOnSearch} />
-            <div class="chipShelf">
+            <div class="searchRow">
+                <Search onSearchClicked={scrollOnSearch} />
+            </div>
+            <!--<div class="chipShelf">
                 <DepartmentChip />
                 <OnlineChip />
                 <StatusChip />
@@ -144,7 +147,7 @@
                 {#if filtered}
                     <button class="chip" on:click={resetFilters}><Restart size="1.5em" /></button>
                 {/if}
-            </div>
+            </div>-->
         </div>
         {#if items.length}
             <VirtualList bind:scrollToIndex={scrollToIndex} items={items} let:item>
@@ -169,15 +172,19 @@
     .listPanel {
         display: flex;
         flex-direction: column;
-        flex-shrink: 0;
-        position: relative;
-
+        max-height: calc(100% - 166px);
         width: 350px;
+        background-color: #222;
     }
     .searchContainer {
         display: flex;
         flex-direction: column;
-        border-bottom: 1px solid #444;
+    }
+    .searchRow {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
     }
     .chipShelf {
         display: flex;

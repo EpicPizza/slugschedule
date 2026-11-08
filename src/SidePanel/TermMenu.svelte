@@ -123,11 +123,12 @@
 <style>
   .termMenu {
     position: absolute;
-    z-index: 50;
-    left: 100%;
-    background-color: #444 !important;
-    bottom: 0;
-    border-radius: 0 10px 10px 0;
+    z-index: 100;
+    top: 80px;
+    left: 75px;
+    background-color: #333 !important;
+    border: #555 solid 1px;
+    border-radius: 10px 10px 10px 10px;
     padding: 10px;
     width: unset !important;
     height: unset !important;
@@ -138,7 +139,6 @@
     justify-content: center;
     gap: 10px;
     cursor: default !important;
-    box-shadow: 5px 0 5px rgba(0, 0, 0, 0.5);
   }
   .termSelector {
     display: flex;
@@ -175,16 +175,6 @@
     }
     to {
       transform: rotate(360deg);
-    }
-  }
-  @media screen and (max-width: 1000px) {
-    .termMenu {
-      bottom: 100% !important;
-      right: 0;
-      left: unset !important;
-      box-shadow: -5px 0 5px rgba(0, 0, 0, 0.5);
-      border-radius: 10px 10px 0 0;
-      align-items: flex-end;
     }
   }
 </style>

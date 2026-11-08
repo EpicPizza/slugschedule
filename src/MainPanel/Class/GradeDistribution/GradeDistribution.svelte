@@ -70,7 +70,7 @@
     import { Bar } from 'svelte-chartjs'
     import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from "chart.js"
     import Class from "../Class.svelte";
-    import { prettyTerm } from '../../../SidePanel/SidePanel.svelte';
+    import { prettyTerm } from '../../../SidePanel/BottomPanel.svelte';
 
     ChartJS.register(
         Title,

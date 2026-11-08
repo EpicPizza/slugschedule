@@ -40,6 +40,7 @@ html, body, #app {
 body, #app {
   margin: 0;
   display: flex;
+  background-color: #111;
 }
 
 h1 {

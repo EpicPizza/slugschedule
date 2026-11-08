@@ -112,7 +112,7 @@
 <style>
     .spacer {
         width: 100%;
-        height: 80px;
+        height: 75px;
         position: relative;
     }
     .searchOuter {
