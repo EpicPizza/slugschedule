@@ -177,4 +177,11 @@
       transform: rotate(360deg);
     }
   }
+  @media screen and (max-width: 1000px) {
+    .termMenu {
+      right: 10px;
+      left: unset;
+      top: 45px;
+    }
+  }
 </style>

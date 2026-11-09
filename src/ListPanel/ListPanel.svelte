@@ -172,7 +172,7 @@
     .listPanel {
         display: flex;
         flex-direction: column;
-        max-height: calc(100% - 166px);
+        max-height: calc(100% - 161px);
         width: 350px;
         background-color: #222;
     }
@@ -218,7 +218,7 @@
     @media screen and (max-width: 1000px) {
         .listPanel {
             width: 100%;
-            height: calc(100% - 50px);
+            max-height: calc(100% - 129px);
         }
         .mobileOpenScheduler {
             display: block;

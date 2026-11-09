@@ -208,12 +208,12 @@
         width: 100%;
         padding: 10px;
         margin: 0px;
-        border-radius: 0 0 27px 27px;
+        border-radius: 27px;
         max-height: calc(100dvh - 20px);
     }
     .results::-webkit-scrollbar {
         width: 5px;
-    }
+    }w
     .results::-webkit-scrollbar-track {
         background-color: transparent;
     }
@@ -227,7 +227,7 @@
     @media screen and (max-width: 1000px) {
         .searchOuter.focused {
             height: calc(100vh - 70px);
-            border-radius: 0px;
+            border-radius: 27px 27px 0 0;
         }
     }
 </style>

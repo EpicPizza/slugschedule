@@ -27,7 +27,7 @@
 </script>
 <div class="topRow">
     <button class="logo" on:click={() => { $focusedClass = "home"; $listMode = "all"}}>
-        <img src={SlugSchedule} width="60px" alt="Slug Schedule Logo. Yellow Slug in front of Calendar."/>
+        <img src={SlugSchedule} alt="Slug Schedule Logo. Yellow Slug in front of Calendar."/>
     </button>
     <div class="title">
         <h2>SlugSchedule</h2>
@@ -74,6 +74,7 @@
         align-items: center;
         padding: 10px;
         padding-left: 15px;
+        padding-bottom: 5px;
     }
     .title > h2 {
         margin: 0px;
@@ -164,6 +165,9 @@
         font-size: unset;
         padding: 0px;
     }
+    .logo > img {
+        width: 60px;
+    }
     .term:focus:not(:focus-visible) {
         outline: none;
     }
@@ -179,6 +183,25 @@
     @media screen and (max-width: 1000px) {
         .tabRow {
             width: calc(100% - 10px);
+        }
+
+        .topRow {
+            height: 40px;
+        }
+
+        .logo > img {
+            width: 30px;
+        }
+
+        .title > h2 {
+            font-size: 1.2em;
+        }
+
+        .title {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            width: 100%;
         }
     }
 </style>
