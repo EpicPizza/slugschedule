@@ -172,9 +172,9 @@
     .listPanel {
         display: flex;
         flex-direction: column;
-        max-height: calc(100% - 161px);
-        width: 350px;
-        background-color: #222;
+        max-height: calc(100% - 143px);
+        width: 450px;
+        background-color: var(--gray-800);
     }
     .searchContainer {
         display: flex;

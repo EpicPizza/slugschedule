@@ -195,12 +195,12 @@
         outline: none;
     }
     .sectionWidget.active {
-        background-color: #1f1f1f;
+        background-color: var(--gray-900);
     }
     .sectionWidget:hover,.sectionWidget:focus-visible {
-        background-color: #2c2c2c;
+        background-color: var(--gray-800);
         border-radius: 8px 8px 0px 0px;
-        border-color: #2c2c2c;
+        border-color: var(--gray-800);
         border-width: 1px;
         outline: none;
     }
@@ -234,13 +234,13 @@
         z-index: 5;
     }z
     .sectionWidget.active .details {
-        background-color: #1f1f1f;
+        background-color: var(--gray-900);
     }
     .sectionWidget:hover .details {
-        background-color: #2c2c2c;
+        background-color: var(--gray-800);
     }
     .sectionWidget:focus-visible .details {
-        background-color: #2c2c2c;
+        background-color: var(--gray-800);
     }
     .spacer {
         width: 100%;

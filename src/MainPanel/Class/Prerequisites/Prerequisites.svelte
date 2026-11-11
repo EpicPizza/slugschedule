@@ -92,12 +92,12 @@
 
     .switcher button:enabled {
         background-color: transparent;
-        border-color: #6a6969;
+        border-color: var(--gray-500);
         border-width: 1px;
     }
 
     .switcher button:disabled {
-        background-color: #2c2c2c;
+        background-color: var(--gray-900);
     }
 
     p {

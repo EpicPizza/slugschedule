@@ -32,7 +32,7 @@
     import Account from "svelte-material-icons/Account.svelte";
     import Poll from "svelte-material-icons/Poll.svelte";
 
-    import { db, detectTerm, focusedClass, listMode, scheduledClasses, starredClasses, term } from "../../mainStore";
+    import { db, detectTerm, focusedClass, listMode, scheduledClasses, shouldAnimate, starredClasses, term } from "../../mainStore";
     import { ClassStatus, type Class } from "../../DB/DB";
     import ClassAllocation from "../../assets/ClassAllocation.svelte";
     import DateChecker from "../../assets/DateChecker.svelte";
@@ -65,6 +65,7 @@
     }
 
     function focusClass() {
+        $shouldAnimate = true;
         if ($listMode === "scheduler") {
             if ($starredClasses.includes(item.number)) {
                 $listMode = "starred";
@@ -125,10 +126,10 @@
     }}
   >
     <div class="topBar">
-      <h2 title={`${code} - ${item.name}`}>
-        <span style="font-weight: bold">{code}</span>
-        <span>{item.name}</span>
-      </h2>
+      <div class="header" title={`${code} - ${item.name}`}>
+        <h3>{code}</h3>
+        <h2>{item.name}</h2>
+      </div>
       <button
         aria-label={$listMode === "scheduler"
           ? "Add/remove class to schedule"
@@ -210,13 +211,14 @@
   .classItem {
     cursor: pointer;
     padding: 10px;
-    background-color: #333;
+    background-color: var(--gray-900);
     margin: 10px;
+    margin-bottom: 2px;
     border-radius: 10px;
-    height: 200px;
+    height: 170px;
     position: relative;
     overflow: hidden;
-    outline: 1px solid #555;
+    outline: 2px solid var(--gray-600);
 
     display: flex;
     flex-direction: column;
@@ -228,10 +230,11 @@
     height: 160px;
   }
   .classItem.small .topBar:before {
-    background-color: #444 !important;
+    background-color: var(--gray-600) !important;
   }
   .classItem.focused {
-    outline: 2px solid grey;
+    outline: 2px solid var(--gray-500);
+    background-color: var(--gray-700);
     transform: translateX(10px);
     border-radius: 10px 0 0 10px;
   }
@@ -243,9 +246,12 @@
     width: calc(100% + 40px);
     height: calc(100% + 20px);
     z-index: -1;
-    background-color: #444;
+    background-color: var(--gray-950);
     z-index: 1;
     transition: background-color 0.2s;
+  }
+  .classItem.focused .topBar:before {
+    background-color: var(--gray-800);
   }
   .classItem.closed .topBar:before {
     background-color: var(--closed-dark);
@@ -261,7 +267,7 @@
     transform: translateY(-5px); /* looks better on smaller text lens */
     padding-bottom: 5px;
   }
-  .topBar h2 {
+  .header {
     z-index: 2;
     font-weight: normal;
     margin: 0;
@@ -275,6 +281,16 @@
     line-height: 1.25; /* fallback */
     max-height: 3;
   }
+  .header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 900;
+  }
+  .header h3 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
   .body {
     flex-grow: 1;
     display: flex;
@@ -286,6 +302,7 @@
   }
   .body > * {
     margin-left: 5px;
+    font-size: 0.9rem;
   }
   .body > * {
     display: flex;
@@ -295,6 +312,9 @@
   :global(.rmpScore) {
     padding: 2px 5px;
     color: black;
+    border-radius: 4px;
+    text-align: center;
+    width: 25px;
     font-weight: bold;
   }
 </style>

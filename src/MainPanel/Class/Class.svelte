@@ -20,7 +20,7 @@
     import VectorCombine from 'svelte-material-icons/VectorCombine.svelte'
 
     import { type Class, ClassStatus } from "../../DB/DB";
-    import { home, db, focusedClass, starredClasses, liveUpdates, detectTerm } from "../../mainStore";
+    import { home, db, focusedClass, starredClasses, liveUpdates, detectTerm, shouldAnimate } from "../../mainStore";
     import ClassWidget from "../../assets/ClassWidget.svelte";
     import DonutChart from "../../assets/DonutChart.svelte";
     import { rmpScoreColor } from "../../ListPanel/ClassItem/ClassItem.svelte";
@@ -107,6 +107,7 @@
         if (!$liveUpdates || $db.term !== detectTerm()) return;
         updateClass();
         updateInterval = setInterval(updateClass, 60 * 1000); // every minute
+        $shouldAnimate = false;
     })
     onDestroy(() => {
         clearInterval(updateInterval);
@@ -444,7 +445,7 @@
         flex-direction: column;
         align-items: stretch;
         gap: 3px;
-        background-color: #2c2c2c;
+        background-color: var(--gray-900);
         border-radius: 8px;
         container-type: inline-size;
         container-name: header;
@@ -461,7 +462,7 @@
     }
     .actionRow button {
         padding: 10px 20px 10px 20px;
-        background-color: #2c2c2c;
+        background-color: var(--gray-900);
         font-size: 24px;
         display: flex;
         align-items: center;
@@ -676,7 +677,7 @@
         gap: 10px;
         align-items: center;
         justify-content: center;
-        background-color: #2c2c2c;
+        background-color: var(--gray-900);
         height: 30px;
     }
     .clickable {

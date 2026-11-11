@@ -2,8 +2,7 @@
   import ListPanel from "./ListPanel/ListPanel.svelte";
   import Loading from "./Loading/Loading.svelte";
   import MainPanel from "./MainPanel/MainPanel.svelte";
-  import BottomPanel, { prettyTerm } from "./SidePanel/BottomPanel.svelte";
-  import TopPanel from "./SidePanel/TopPanel.svelte";
+  import TopPanel, { prettyTerm } from "./SidePanel/TopPanel.svelte";
   import { db } from "./mainStore";
   import TermMenu from "./SidePanel/TermMenu.svelte";
 
@@ -17,7 +16,7 @@
 {:else}
 <div class="app">
   <div class="sidePanel">
-    <BottomPanel />
+    <TopPanel />
     <ListPanel />
   </div>
   <div class="mainPanel">
@@ -40,8 +39,8 @@
     flex-direction: column;
     max-height: 100%;
     overflow: hidden;
-    min-width: 350px;
-    max-width: 350px;
+    min-width: 450px;
+    max-width: 450px;
   }
 
   .mainPanel {

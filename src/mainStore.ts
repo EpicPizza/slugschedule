@@ -216,7 +216,7 @@ export let listMode = writable<"scheduler" | "starred" | "all" | "smart">(
 export let liveUpdates = writable<boolean>(
   localStorage.getItem("autoCheckForUpdates") !== "false",
 );
-export let shouldAnimate = writable<boolean>(true);
+export let shouldAnimate = writable<boolean>(false);
 
 function pushState() {
   if (get(db) === null) return;

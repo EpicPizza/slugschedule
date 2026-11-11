@@ -89,7 +89,7 @@
     height: 10px;
     border-radius: 5px;
     overflow: hidden;
-    background-color: #111;
+    background-color: var(--gray-600);
   }
   .enrolled {
     align-items: flex-end;

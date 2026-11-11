@@ -242,7 +242,7 @@
         gap: 10px;
     }
     .calendarInstructions {
-        width: 450px;
+        width: 500px;
         flex-shrink: 1;
     }
     @media screen and (max-width: 500px) {

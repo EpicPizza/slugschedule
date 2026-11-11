@@ -352,7 +352,7 @@
         font-size: 10px;
         border-radius: 4px;
         background-color: transparent;
-        border-color: #6a6969;
+        border-color: var(--gray-500);
         border-width: 1px;
         margin-left: -1px;
     }
@@ -363,8 +363,8 @@
         border-radius: 4px 8px 8px 4px;
     }
     .chartViews button.active {
-        background-color: #2c2c2c;
-        border-color: #2c2c2c;
+        background-color: var(--gray-900);
+        border-color: var(--gray-900);
     }
     h2.trend {
         display: flex;

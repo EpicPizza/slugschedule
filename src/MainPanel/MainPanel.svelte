@@ -188,8 +188,8 @@
         padding: 15px;
         border-radius: 16px 16px 0 0;
         border-bottom: 0;
-        border: 1px solid #6a6969;
-        background-color: #494949;
+        border: 2px solid var(--gray-500);
+        background-color: var(--gray-600);
         overflow: auto;
     }
     .mainInner.initial {

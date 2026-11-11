@@ -21,6 +21,20 @@
   --closed-dark: #344D88;
   --waitlist: #FFCC34;
   --waitlist-dark: #BE7D0E;
+
+  --gray-50: oklch(98.5% 0.002 247.839);
+  --gray-100: oklch(96.7% 0.003 264.542);
+  --gray-200: oklch(92.8% 0.006 264.531);
+  --gray-300: oklch(87.2% 0.01 258.338);
+  --gray-400: oklch(70.7% 0.022 261.325);
+  --gray-500: oklch(51.005% 0.00343 264.649);
+  --gray-600: oklch(39.676% 0.00433 248.177);
+  --gray-700: oklch(33.246% 0.00758 264.506);
+  --gray-800: oklch(26.465% 0.00578 271.203);
+  --gray-900: oklch(23.418% 0.00653 258.422);
+  --gray-950: oklch(18.674% 0.00002 271.152);
+
+
 }
 
 a {
@@ -40,7 +54,7 @@ html, body, #app {
 body, #app {
   margin: 0;
   display: flex;
-  background-color: #111;
+  background-color: var(--gray-950);
 }
 
 h1 {
