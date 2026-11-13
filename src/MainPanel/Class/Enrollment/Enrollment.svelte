@@ -2,6 +2,7 @@
     import TrendingUp from "svelte-material-icons/TrendingUp.svelte";
     import TrendingDown from "svelte-material-icons/TrendingDown.svelte";
     import Information from "svelte-material-icons/Information.svelte";
+    import ChartBox from "svelte-material-icons/ChartBox.svelte";
     import { Line } from 'svelte-chartjs'
     import { Chart as ChartJS, TimeScale, Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale } from "chart.js"
     import 'chartjs-adapter-moment';
@@ -238,21 +239,27 @@
     }
 </script>
 
-{#if range > 24 * 60 * 60 * 1000}
-    <div class="chartViews">
-        <button on:click={() => chartView = "all"} class:active={chartView == "all"} class:left={true}>all</button>
-        {#if range > 30 * 24 * 60 * 60 * 1000}
-        <button on:click={() => chartView = "30d"} class:active={chartView == "30d"}>30d</button>
-        {/if}
-        {#if range > 7 * 24 * 60 * 60 * 1000}
-        <button on:click={() => chartView = "7d"} class:active={chartView == "7d"}>7d</button>
-        {/if}
-        {#if range > 3 * 24 * 60 * 60 * 1000}
-        <button on:click={() => chartView = "3d"} class:active={chartView == "3d"}>3d</button>
-        {/if}
-        <button on:click={() => chartView = "1d"} class:active={chartView == "1d"} class:right={true}>1d</button>
+<div class="sectionTitle">
+    <div class="icon">
+        <ChartBox></ChartBox>
     </div>
-{/if}
+    <p class="text">Enrollment {$db.term !== detectTerm() ? "over time" : ""}</p>
+    {#if range > 24 * 60 * 60 * 1000}
+        <div class="chartViews">
+            <button on:click={() => chartView = "all"} class:active={chartView == "all"} class:left={true}>all</button>
+            {#if range > 30 * 24 * 60 * 60 * 1000}
+            <button on:click={() => chartView = "30d"} class:active={chartView == "30d"}>30d</button>
+            {/if}
+            {#if range > 7 * 24 * 60 * 60 * 1000}
+            <button on:click={() => chartView = "7d"} class:active={chartView == "7d"}>7d</button>
+            {/if}
+            {#if range > 3 * 24 * 60 * 60 * 1000}
+            <button on:click={() => chartView = "3d"} class:active={chartView == "3d"}>3d</button>
+            {/if}
+            <button on:click={() => chartView = "1d"} class:active={chartView == "1d"} class:right={true}>1d</button>
+        </div>
+    {/if}
+</div>
 
 <div class="quickLook">
     <div class="bar">
@@ -298,6 +305,25 @@
 </div>
 
 <style>
+   .sectionTitle {
+        display: flex; 
+        align-items: center;
+        gap: 4px;
+        margin-top: 16px;
+        margin-bottom: 4px;
+    }
+    .sectionTitle .icon {
+        display: flex;
+        align-items: center;
+        font-size: 18px
+    }
+    .sectionTitle .text {
+        margin: 0px;
+        font-size: 16px;
+        font-weight: 600;
+        background-color: transparent;
+        padding: 0;
+    }
     .quickLook {
         background-color: #0000002d;
         border-radius: 8px 8px 4px 4px;

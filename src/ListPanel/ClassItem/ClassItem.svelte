@@ -127,7 +127,22 @@
   >
     <div class="topBar">
       <div class="header" title={`${code} - ${item.name}`}>
-        <h3>{code}</h3>
+        <h3>
+          {code}
+          <div style="display: inline-block; width: 4px; height: 4px; background-color: #ccc; border-radius: 50%; margin: 0 2px;"></div>
+          {item.instructor.name}
+          {#if item.instructor.id && item.instructor.id !== "-1" && item.instructor.numRatings > 0}
+            <div
+              class="rmpScore"
+              style={`background-color: ${rmpScoreColor(item.instructor.avgRating)}`}
+            >
+              {item.instructor.avgRating.toFixed(1)}
+            </div>
+            <div class="rmpScore" style={`background-color: #aaa`}>
+              {item.instructor.avgDifficulty.toFixed(1)}
+            </div>
+          {/if}
+        </h3>
         <h2>{item.name}</h2>
       </div>
       <button
@@ -169,24 +184,6 @@
             <DateChecker background={false} number={item.number} meetingInfos={item.meetingInfos} />
         </div>
       {/if}
-      {#if item.instructor.name && item.instructor.name !== "N/A"}
-        <div class="instructor" style="min-width: calc(50%)">
-          <Account />
-          {item.instructor.name}
-          {#if item.instructor.id && item.instructor.id !== "-1" && item.instructor.numRatings > 0}
-            <div
-              class="rmpScore"
-              style={`background-color: ${rmpScoreColor(item.instructor.avgRating)}`}
-            >
-              {item.instructor.avgRating.toFixed(1)}
-            </div>
-            <div class="rmpScore" style={`background-color: #aaa`}>
-              {item.instructor.avgDifficulty.toFixed(1)}
-            </div>
-            ({item.instructor.numRatings} ratings)
-          {/if}
-        </div>
-      {/if}
       {#if item.gradeDistributions && item.gradeDistributions.length}
         {@const averageGPA = calculateAverageGPA(item.gradeDistributions)}
         {@const difficulty = calculateDifficulty(averageGPA)}
@@ -215,7 +212,6 @@
     margin: 10px;
     margin-bottom: 2px;
     border-radius: 10px;
-    height: 170px;
     position: relative;
     overflow: hidden;
     outline: 2px solid var(--gray-600);
@@ -273,23 +269,24 @@
     margin: 0;
     margin-left: 5px;
     flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    padding: 7px 0px 7px 0px;
     line-height: 1.25; /* fallback */
-    max-height: 3;
   }
   .header h2 {
     margin: 0;
     font-size: 1.2rem;
-    font-weight: 900;
+    font-weight: 800;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 5px;
   }
   .header h3 {
     margin: 0;
     font-size: 0.95rem;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
   .body {
     flex-grow: 1;
@@ -299,6 +296,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 5px;
+    padding-bottom: 15px;
   }
   .body > * {
     margin-left: 5px;
@@ -308,6 +306,10 @@
     display: flex;
     align-items: center;
     gap: 5px;
+  }
+  .rmpScore {
+    padding: 1.5px 2px;
+    font-size: 0.8rem;
   }
   :global(.rmpScore) {
     padding: 2px 5px;

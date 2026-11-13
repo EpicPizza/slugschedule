@@ -98,7 +98,7 @@
         font-size: 1rem;
     }
     .tabRow {
-        width: 440px;
+        width: 390px;
         flex-shrink: 0;
         height: 54px;
         display: flex;

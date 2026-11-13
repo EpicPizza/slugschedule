@@ -173,7 +173,7 @@
         display: flex;
         flex-direction: column;
         height: calc(100% - 143px);
-        width: 450px;
+        width: 400px;
         background-color: var(--gray-800);
     }
     .searchContainer {

@@ -194,8 +194,10 @@
                                 Full
                             {:else if item.availability.capacity - item.availability.enrolled === 1}
                                 One spot remaining!
+                            {:else if item.availability.enrolled === 0}
+                                All {item.availability.capacity} seats left
                             {:else}
-                                <span><RollingNumber number={item.availability.capacity - item.availability.enrolled} /> spots remaining</span>
+                                <span><RollingNumber number={item.availability.capacity - item.availability.enrolled} /> spots left <span style="font-weight: 300;">out of {item.availability.capacity}</span></span>
                             {/if}
 
                             {#if item.availability.status === ClassStatus.Waitlist}
@@ -342,12 +344,6 @@
                 {/each}
             </div>
         {/if}
-        <div class="sectionTitle">
-            <div class="icon">
-                <ChartBox></ChartBox>
-            </div>
-             <p class="text">Enrollment {$db.term !== detectTerm() ? "over time" : ""}</p>
-        </div>
         <Enrollment bind:enrolledInLastDay number={item.number} availability={item.availability} {lastUpdate} />
         {#if item.gradeDistributions.length}
             <h3>Grade distribution</h3>

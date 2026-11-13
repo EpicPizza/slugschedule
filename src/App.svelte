@@ -39,8 +39,8 @@
     flex-direction: column;
     max-height: 100%;
     overflow: hidden;
-    min-width: 450px;
-    max-width: 450px;
+    min-width: 400px;
+    max-width: 400px;
   }
 
   .mainPanel {
