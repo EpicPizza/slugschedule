@@ -192,12 +192,6 @@
         background-color: var(--gray-600);
         overflow: auto;
     }
-    .mainInner.initial {
-        background-color: transparent;
-        border: none;
-        max-width: 800px;
-        margin: 0 auto;
-    }
     input[type="checkbox"] {
         transform: scale(1.2);
         margin-left: 10px;

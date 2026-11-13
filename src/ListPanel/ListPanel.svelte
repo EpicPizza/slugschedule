@@ -172,7 +172,7 @@
     .listPanel {
         display: flex;
         flex-direction: column;
-        max-height: calc(100% - 143px);
+        height: calc(100% - 143px);
         width: 450px;
         background-color: var(--gray-800);
     }
@@ -204,7 +204,7 @@
     }
     .mobileOpenScheduler {
         display: none;
-        background-color: #555;
+        background-color: var(--gray-500);
         position: fixed;
         bottom: 80px;
         left: 50%;
@@ -212,13 +212,13 @@
         white-space: nowrap;
         transform: translateX(-50%);
         padding: 10px 30px;
-        border-radius: 50px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        border: 2px solid var(--gray-600);
     }
     @media screen and (max-width: 1000px) {
         .listPanel {
             width: 100%;
-            max-height: calc(100% - 129px);
+            height: calc(100% - 111px);
         }
         .mobileOpenScheduler {
             display: block;

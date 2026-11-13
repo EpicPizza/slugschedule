@@ -172,6 +172,7 @@
 		-webkit-overflow-scrolling:touch;
 		display: block;
 		width: 100%;
+		padding-bottom: 10px;
 	}
 	svelte-virtual-list-contents, svelte-virtual-list-row {
 		display: block;

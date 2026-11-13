@@ -30,7 +30,9 @@
         <img src={SlugSchedule} alt="Slug Schedule Logo. Yellow Slug in front of Calendar."/>
     </button>
     <div class="title">
-        <h2>SlugSchedule</h2>
+        <button on:click={() => { $focusedClass = "home"; $listMode = "all"}}>
+            <h2>SlugSchedule</h2>
+        </button>
         <button on:click={() => termMenuOpen = !termMenuOpen} class:active={termMenuOpen} class="term" style="text-align: center">{term} ({$db.term})</button>
     </div>
     {#if termMenuOpen}
@@ -76,14 +78,24 @@
         padding-left: 15px;
         padding-bottom: 5px;
     }
-    .title > h2 {
+    .title {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        align-items: start;
+        width: 100%;
+    }
+    .title > button > h2 {
         margin: 0px;
         font-size: 1.4em;
         margin-bottom: 0px;
     }
     .title > button {
+        background-color: transparent;
+        border: none;
+        padding: 0px !important;
+        margin: 0px !important;
         font-size: 1rem;
-        
     }
     .tabRow {
         width: 440px;
@@ -120,6 +132,10 @@
         color: #ddd;
         
         transition: border-color 0.1s ease-in-out, transform 0.1s ease-in-out, border-radius 0.1s ease-in-out, color 0.1s ease-in-out;
+    }
+    .iconBtn:hover {
+        background-color: var(--gray-800) !important;
+        transition: background-color 0.1s ease-in-out, transform 0.1s ease-in-out, border-radius 0.1s ease-in-out, color 0.1s ease-in-out;
     }
     .iconBtn > div {
         display: flex;
@@ -194,7 +210,7 @@
             width: 30px;
         }
 
-        .title > h2 {
+        .title > button > h2 {
             font-size: 1.2em;
             padding-bottom: 3px;
         }

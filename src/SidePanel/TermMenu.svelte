@@ -126,8 +126,8 @@
     z-index: 100;
     top: 80px;
     left: 75px;
-    background-color: #333 !important;
-    border: #555 solid 1px;
+    background-color: var(--gray-700) !important;
+    border: var(--gray-500) solid 2px;
     border-radius: 10px 10px 10px 10px;
     padding: 10px;
     width: unset !important;
