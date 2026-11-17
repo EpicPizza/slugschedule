@@ -10,8 +10,10 @@
 
     let showEnrollment = false;
     let color = item.availability.enrolled / item.availability.capacity * 100 === 100 ? "var(--closed)" : "white";
+
+    let expand: false;
 </script>
-  
+
 <div class="associatedClass"
     class:cancelled={item.meetingInfo.dayAndTime.includes("Cancelled") || item.meetingInfo.dayAndTime === ""}
     class:clickable={onClick}
@@ -20,7 +22,7 @@
     on:keydown={(e) => e.key !== "Tab" && onClick ? onClick() : ""}
     role="button"
     tabindex={onClick ? 0 : -1}
-
+    
 >
     <h3>{item.code} <span class="number">#{item.number}</span></h3>
     <div class="fact">
@@ -34,10 +36,18 @@
         <Account />
         {item.meetingInfo.instructor}
     </div>
-    <div class="bar">
-        <div class="fill" style={`background-color: ${color}; width: ${item.availability.enrolled / item.availability.capacity * 100}%`} />
-    </div>
-    <span style="color: lightgrey">{Math.round(item.availability.enrolled / item.availability.capacity * 100)}% full ({item.availability.enrolled}/{item.availability.capacity})</span>
+    <button on:click={() => { showEnrollment = !showEnrollment; console.log(item); }}>
+        <div class="bar">
+            <div class="fill" style={`background-color: ${color}; width: ${item.availability.enrolled / item.availability.capacity * 100}%`} />
+        </div>
+        <span style="color: lightgrey">{Math.round(item.availability.enrolled / item.availability.capacity * 100)}% full ({item.availability.enrolled}/{item.availability.capacity})</span>
+    </button>
+
+    {#if showEnrollment}
+        <div transition:slide={{duration: 100}}>
+            <Enrollment large={false} availability={item.availability} item={item} number={item.number} />
+        </div>
+    {/if}
 </div>
   
 <style>
@@ -59,6 +69,14 @@
         display: inline-block;
         transition: border-color 0.2s, background-color 0.2s;
     }
+    .associatedClass button {
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        padding: 0px;
+        text-align: left;
+        font-size: inherit;
+    }
     .fact {
         display: flex;
         align-items: center;
@@ -79,7 +97,8 @@
         background-color: #777;
         border-radius: 5px;
         overflow: hidden;
-        margin-top: 12px;
+        margin-top: 8px;
+        margin-bottom: 6px;
     }
     .fill {
         color: white;

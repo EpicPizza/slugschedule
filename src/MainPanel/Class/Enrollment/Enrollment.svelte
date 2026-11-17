@@ -18,10 +18,14 @@
     export let lastUpdate: Date = new Date();
 
     let color = "red";
+    // Prefer live data from the db, but associated sections (labs/discussions) aren't in
+    // $db.classes, so fall back to the item/availability passed in as props.
+    let avail;
     $: {
-        item = $db ? $db.classes.find((item) => item.number === number) : null;
-        color = item?.availability.status === ClassStatus.Closed ? "var(--closed)" :
-            item?.availability.status === ClassStatus.Waitlist ? "var(--waitlist)" : "white";
+        const live = $db ? $db.classes.find((c) => c.number === number) : null;
+        avail = live?.availability ?? item?.availability ?? availability ?? {};
+        color = avail.status === ClassStatus.Closed ? "var(--closed)" :
+            avail.status === ClassStatus.Waitlist ? "var(--waitlist)" : "white";
     }
 
     let chartView: "all" | "30d" | "7d" | "3d" | "1d" = "all";
@@ -35,6 +39,9 @@
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
+            legend: {
+                align: 'start'
+            },
             tooltip: {
                 mode: 'index',
                 intersect: false
@@ -239,46 +246,61 @@
     }
 </script>
 
-<div class="sectionTitle">
-    <div class="icon">
-        <ChartBox></ChartBox>
-    </div>
-    <p class="text">Enrollment {$db.term !== detectTerm() ? "over time" : ""}</p>
-    {#if range > 24 * 60 * 60 * 1000}
-        <div class="chartViews">
-            <button on:click={() => chartView = "all"} class:active={chartView == "all"} class:left={true}>all</button>
-            {#if range > 30 * 24 * 60 * 60 * 1000}
-            <button on:click={() => chartView = "30d"} class:active={chartView == "30d"}>30d</button>
-            {/if}
-            {#if range > 7 * 24 * 60 * 60 * 1000}
-            <button on:click={() => chartView = "7d"} class:active={chartView == "7d"}>7d</button>
-            {/if}
-            {#if range > 3 * 24 * 60 * 60 * 1000}
-            <button on:click={() => chartView = "3d"} class:active={chartView == "3d"}>3d</button>
-            {/if}
-            <button on:click={() => chartView = "1d"} class:active={chartView == "1d"} class:right={true}>1d</button>
+<div class="sectionTitle" class:small={!large}>
+    {#if large}
+        <div class="icon">
+            <ChartBox></ChartBox>
         </div>
+        <p id=enrollment class="text">Enrollment {$db.term !== detectTerm() ? "over time" : ""}</p>
     {/if}
 </div>
 
-<div class="quickLook">
-    <div class="bar">
-        <div class="fill" style={`background-color: ${color}; width: ${item.availability.enrolled / item.availability.capacity * 100}%`} />
-        <div class="fill" style={`background-color: var(--waitlist-dark); width: ${item.availability.waitlist / item.availability.waitlistCapacity * 100}%`} />
+{#if large}
+    <div class="quickLook">
+        <div class="bar">
+            <div class="fill" style={`background-color: ${color}; width: ${avail.enrolled / avail.capacity * 100}%`} />
+            <div class="fill" style={`background-color: var(--waitlist-dark); width: ${avail.waitlist / avail.waitlistCapacity * 100}%`} />
+        </div>
+        {#if avail.capacity === 0}
+        <span>Temp. Closed ({avail.enrolled}/{avail.capacity})</span>
+        {:else}
+        <span>{Math.round(avail.enrolled / avail.capacity * 100)}% full ({avail.enrolled}/{avail.capacity})</span>
+        {/if}
     </div>
-    {#if item.availability.capacity === 0}
-    <span>Temp. Closed ({item.availability.enrolled}/{item.availability.capacity})</span>
-    {:else}
-    <span>{Math.round(item.availability.enrolled / item.availability.capacity * 100)}% full ({item.availability.enrolled}/{item.availability.capacity})</span>
-    {/if}
-</div>
+{/if}
 <div class="enrollment">
-    <div class="chart">
-        <div>
+    <div class="chart" class:small={!large}>
+        {#if range > 24 * 60 * 60 * 1000}
+            <div class="chartViews">
+                <button on:click={() => chartView = "all"} class:active={chartView == "all"} class:left={true}>all</button>
+                {#if range > 30 * 24 * 60 * 60 * 1000}
+                <button on:click={() => chartView = "30d"} class:active={chartView == "30d"}>30d</button>
+                {/if}
+                {#if range > 7 * 24 * 60 * 60 * 1000}
+                <button on:click={() => chartView = "7d"} class:active={chartView == "7d"}>7d</button>
+                {/if}
+                {#if range > 3 * 24 * 60 * 60 * 1000}
+                <button on:click={() => chartView = "3d"} class:active={chartView == "3d"}>3d</button>
+                {/if}
+                <button on:click={() => chartView = "1d"} class:active={chartView == "1d"} class:right={true}>1d</button>
+            </div>
+        {/if}
+        <div class="chartInner">
             <Line
                 data={data}
                 options={options}
                 plugins={[
+                    {
+                        // Chart.js has no legend margin option, so pad the legend's fitted height
+                        id: 'legendMargin',
+                        beforeInit: chart => {
+                            const fit = chart.legend.fit;
+                            chart.legend.fit = function () {
+                                fit.call(this);
+                                this.height += 12;
+                            };
+                        }
+                    },
                     {
                         id: 'verticalLiner',
                         afterDraw: chart => {
@@ -312,6 +334,9 @@
         margin-top: 16px;
         margin-bottom: 4px;
     }
+    .sectionTitle.small {
+        margin-top: -15px;
+    }
     .sectionTitle .icon {
         display: flex;
         align-items: center;
@@ -334,18 +359,23 @@
     .enrollment {
         display: flex;
         gap: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 0px;
         flex-direction: column;
         height: auto;
         width: 100%;
         max-height: 600px;
+        position: relative;
     }
     .enrollment .chart {
         background-color: #0000002d;
         border-radius: 4px 4px 8px 8px;
         padding: 8px 20px 0px 20px;
     }
-    .enrollment .chart div {
+    .enrollment .chart.small {
+        padding: 0px 0px 0px 0px;
+        background-color: transparent;
+    }
+    .enrollment .chart .chartInner {
         height: 300px;
         margin-bottom: -32px;
     }
@@ -373,14 +403,19 @@
     }
     .chartViews {
         margin-left: auto;
+        position: absolute;
+        right: 16px;
+        top: 12px;
+        z-index: 20;
     }
     .chartViews button {
         font-size: 10px;
         border-radius: 4px;
-        background-color: transparent;
-        border-color: var(--gray-500);
-        border-width: 1px;
+        background-color: var(--gray-900);
+        border-color: var(--gray-800);
+        border-width: 2px;
         margin-left: -1px;
+        font-weight: 900;
     }
     .chartViews .left {
         border-radius: 8px 4px 4px 8px;
@@ -389,8 +424,9 @@
         border-radius: 4px 8px 8px 4px;
     }
     .chartViews button.active {
-        background-color: var(--gray-900);
-        border-color: var(--gray-900);
+        background-color: var(--gray-300);
+        color: black;
+        border-color: var(--gray-400);
     }
     h2.trend {
         display: flex;

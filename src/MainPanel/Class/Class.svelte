@@ -149,9 +149,6 @@
     <div class="classInfo">
         <header class="title" style="{openSeatsOnWaitlisted ? "border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;" : ""}">
             <div class="actionRow">
-                <button class="backBtn" on:click={() => $focusedClass = null}>
-                    <ArrowLeft />
-                </button>
                 <h2 class="text">
                     {item.code}
                     {#if $db.term !== detectTerm()}
@@ -184,7 +181,7 @@
                 </h1>
             </div>
             <div class="infoRow">
-                <div class="enrollmentRow">
+                <a href="#enrollment" class="enrollmentRow">
                     <ClassStatusIcon status={item.availability.status} />
                     <div class="status">
                         <div class="spots">
@@ -223,8 +220,8 @@
                             })}</div>
                         {/if}
                     </div>
-                </div>
-                <div class="instructorRow">
+                </a>
+                <a href="#instructor" class="instructorRow">
                     <div class="instructorLeft">
                         <div class="icon">
                             <School></School>
@@ -257,7 +254,7 @@
                             </div>
                         </div>
                     {/if}
-                </div>
+                </a>
             </div>
         </header>
 
@@ -402,7 +399,7 @@
         </div>
     </aside>
 </div>
-<div class="">
+<div id="instructor" class="">
     {#if item.instructor.reviews && item.instructor.reviews.length > 0}
         <h3>Here's what people are saying</h3>
         {#if item.instructor.reviews.filter(r => r.related).length}
@@ -449,32 +446,27 @@
     .actionRow {
         display: flex;
         gap: 3px;
+        padding: 3px 3px 0px;
     }
     .actionRow .text {
-        padding: 14px 20px 10px 0px;
+        padding: 16px 17px 10px 17px;
         font-size: 20px;
         width: 100%;
         line-height: 20px;
     }
     .actionRow button {
-        padding: 10px 20px 10px 20px;
-        background-color: var(--gray-900);
+        padding: 4px 10px 4px 10px;
+        background-color: var(--gray-700);
         font-size: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-    .actionRow .backBtn {
-        border-radius: 8px 4px 4px 4px;
-    }
-    .actionRow .starBtn {
-        border: 4px;
-    }
-    .actionRow .shareBtn {
-        border-radius: 4px 8px 4px 4px;
+        border: 2px solid var(--gray-600);
+        margin: 4px;
+        margin-left: 0px;
     }
     .titleRow {
-        padding: 8px 20px 5px 20px;
+        padding: 3px 20px 5px 20px;
     }
     .infoRow {
         display: flex;
@@ -489,6 +481,8 @@
         align-items: center;
         gap: 16px;
         font-size: 24px;
+        background-color: #00000000 !important;
+        padding: 0px;
     }
     .enrollmentRow .status {
         display: flex;
@@ -516,6 +510,8 @@
         overflow: hidden;
         min-width: 45%;
         margin-left: auto;
+        background-color: #00000000 !important;
+        padding: 0px;
     }
     .instructorLeft {
         display: flex;
@@ -787,15 +783,6 @@
     @media screen and (max-width: 500px) {
         .associatedClasses {
             grid-template-columns: 1fr;
-        }
-    }
-
-    @media screen and (min-width: 1001px) {
-        .actionRow .backBtn {
-            display: none;
-        }
-        .actionRow .text {
-            padding: 14px 20px 10px 20px;
         }
     }
     

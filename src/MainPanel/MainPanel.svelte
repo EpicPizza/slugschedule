@@ -191,6 +191,7 @@
         border: 2px solid var(--gray-500);
         background-color: var(--gray-600);
         overflow: auto;
+        scroll-behavior: smooth;
     }
     input[type="checkbox"] {
         transform: scale(1.2);

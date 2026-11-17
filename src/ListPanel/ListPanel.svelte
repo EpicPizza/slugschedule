@@ -120,7 +120,7 @@
         
         setTimeout(() => {
             let index = items.findIndex((c) => c.number === item.number);
-            if (scrollToIndex && $focusedClass && index) {
+            if (scrollToIndex && $focusedClass && index >= 0) {
                 scrollToIndex(index);
             }
         }, 0)

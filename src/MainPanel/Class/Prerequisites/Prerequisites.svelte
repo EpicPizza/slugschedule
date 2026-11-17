@@ -1,6 +1,8 @@
 <script lang="ts">
     import AlertCircleOutline from "svelte-material-icons/AlertCircleOutline.svelte";
     import AsteriskCircleOutline from "svelte-material-icons/AsteriskCircleOutline.svelte";
+    import InformationOutline from "svelte-material-icons/InformationOutline.svelte";
+    import AlertOutline from "svelte-material-icons/AlertOutline.svelte";
 
     import RichText from "../../../assets/RichText.svelte";
     import PrereqNode from "./PrereqNode.svelte";
@@ -23,15 +25,6 @@
 </script>
 
 <div class="prerequisites">
-    <div class="switcher">
-        <button disabled={showOriginal} on:click={() => { showOriginal = !showOriginal; }} class="left">
-            Original
-        </button>
-        <button disabled={!showOriginal} on:click={() => { showOriginal = !showOriginal; }} class="right">
-            Expanded
-        </button>
-    </div>
-
     {#if showOriginal}
         <div class="sectionTitle">
             <div class="icon">
@@ -40,8 +33,20 @@
             <p class="text">Prerequisites</p>
         </div>
 
-         <div class="section sectionRichText">
+        <div class="section originalInfo">
+            <InformationOutline size="24px"></InformationOutline>
+            <p>Showing original prerequisites. <button on:click={() => { showOriginal = !showOriginal; }}>show expanded prerequisites</button></p>
+        </div>
+
+        <div class="section originalPrereqs sectionRichText">
             <RichText content={content} />
+        </div>
+    {/if}
+
+    {#if showOriginal == false}
+        <div class="section expandedAlert">
+            <AlertOutline size="24px"></AlertOutline>
+            <p>Always double-check with original prerequisites. Our expanded prerequisites may not be 100% accurate. <button on:click={() => { showOriginal = !showOriginal; }}>show original prerequisites</button></p>
         </div>
     {/if}
 
@@ -75,29 +80,58 @@
         position: relative;
     }
 
-    .prerequisites .switcher {
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-size: 10px;
+    .originalInfo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 4px 4px 8px;
+        background-color: #0000002d;
+        border-radius: 8px;
+        margin-bottom: 3px;
+        border-radius: 8px 8px 4px 4px !important;
     }
 
-    .switcher .left {
-        border-radius: 8px 4px 4px 8px;
+    .originalInfo button {
+        background: none !important;
+        border: none !important;
+        margin: 0;
+        padding: 0;
+        text-decoration: underline;
+        color: inherit;
     }
 
-    .switcher .right {
-        border-radius: 4px 8px 8px 4px;
+    .originalPrereqs {
+        border-radius: 4px 4px 8px 8px !important;
     }
 
-    .switcher button:enabled {
-        background-color: transparent;
-        border-color: var(--gray-500);
-        border-width: 1px;
+    .originalInfo p {
+        margin: 0;
     }
 
-    .switcher button:disabled {
-        background-color: var(--gray-900);
+    .expandedAlert {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 4px 4px 8px;
+        background-color: #ffc171 !important;
+        color: black;
+        border-radius: 8px;
+        margin-top: 24px;
+    }
+
+    .expandedAlert button {
+        background: none !important;
+        border: none !important;
+        margin: 0;
+        padding: 0;
+        text-decoration: underline;
+        color: inherit;
+        font-weight: 800;
+    }
+
+    .expandedAlert p {
+        margin: 0;
+        line-height: 1.5em;
     }
 
     p {
